@@ -1,6 +1,6 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form (ngSubmit)="save()" nonvalidate="">
+<form (ngSubmit)="save(ngform)" #ngform="ngForm" nonvalidate="">
 
   <div>
 
@@ -8,13 +8,7 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Nombre"
-               name='nombre'
-               ngModel
-               minlength="15"
-               required> 
+        <input class="form-control" type="text" placeholder="Nombre" name='nombre' ngModel [ngModel]="user.name" minlength="15" required>
       </div>
     </div>
 
@@ -22,13 +16,7 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Apellido"
-               name='apellido'
-               ngModel
-               minlength="25"
-               > 
+        <input class="form-control" type="text" placeholder="Apellido" name='apellido' ngModel [ngModel]="user.lastname" minlength="25">
       </div>
     </div>
 
@@ -38,11 +26,7 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control"
-             type="email"
-             placeholder="Correo electrónico"
-             name='email'
-             ngModel>
+      <input class="form-control" type="email" placeholder="Correo electrónico" name='email' [ngModel]="user.email" ngModel required>
     </div>
   </div>
 

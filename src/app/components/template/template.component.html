@@ -4,31 +4,40 @@
 
   <div>
     <div class="form-group row">
-      <label class="col-2 col-form-label">Nombre</label>
+      <!-- dirty quiere decir que ya modificó por primera vez  el valor del campo-->
+      <label class="col-2 col-form-label" [ngClass]="{'text-danger': name.invalid && name.dirty , 'text-success': name.valid && name.dirty  }">Nombre </label>
+     
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre" name='nombre' 
-               ngModel [ngModel]="user.name"  minlength="5" required #name="ngModel"> 
+        <input class="form-control" [ngClass]="{'is-invalid': name.invalid && name.dirty , 'is-valid': name.valid && name.dirty  }"
+         type="text" placeholder="name" name='name' ngModel [ngModel]="user.name" minlength="5" pattern="[a-zA-Z_áéíóúñàèìòùç\s]*"
+        required #name="ngModel">
 
-        <div *ngIf="name.errors?.required">
+        <div  *ngIf="name.errors?.required  && name.dirty" [ngClass]="{'invalid-feedback':name.errors!=null}" >
           Este campo es requerido
         </div>
 
-        <div *ngIf="name.errors?.minlength">
-          Este campo requiere {{ name.errors.minlength.requiredLength }} 
-          caracteres como minimo y usted introdujo {{name.errors.minlength.actualLength}}
+        <div class="text-danger" *ngIf="name.errors?.minlength  && name.dirty"  [ngClass]="{'invalid-feedback':name.errors!=null}" >
+          Este campo requiere {{ name.errors.minlength.requiredLength }} caracteres como minimo y usted introdujo {{name.errors.minlength.actualLength}}
+        </div>
+
+        <div class="text-danger" *ngIf="name.errors?.pattern  && name.dirty">
+          No es un formato valido
         </div>
 
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Apellido</label>
-      <div class="col-8">
-        <input class="form-control" type="text" placeholder="Apellido" name='apellido'
-                ngModel [ngModel]="user.lastname" required #lastname="ngModel">
 
-        <div *ngIf="lastname.errors?.required">
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label" [ngClass]="{'text-danger': lastname.invalid && lastname.dirty , 'text-success': lastname.valid && lastname.dirty  }" >Apellido</label>
+      <div class="col-8">
+        <input class="form-control" [ngClass]="{'is-invalid': lastname.invalid && lastname.dirty , 'is-valid': lastname.valid && lastname.dirty  }" type="text" placeholder="Apellido" name='apellido' ngModel [ngModel]="user.lastname" required
+          #lastname="ngModel">
+
+        <div class="text-danger" *ngIf="lastname.errors?.required && lastname.dirty"> 
           Este campo es requerido
         </div>
 
@@ -37,26 +46,30 @@
 
   </div>
 
+
   <div class="form-group row">
-    <label class="col-2 col-form-label">Correo</label>
+    <label class="col-2 col-form-label" [ngClass]="{'text-danger': email.invalid && email.dirty , 'text-success': email.valid && email.dirty  }" >Correo</label>
     <div class="col-md-8">
-      <input class="form-control" type="email" placeholder="Correo electrónico" name='email'
-             [ngModel]="user.email" ngModel pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-             required #email="ngModel">
-      <div *ngIf="email.errors?.required">
+      <input class="form-control"  [ngClass]="{'is-invalid': email.invalid && email.dirty , 'is-valid': email.valid && email.dirty  }"  type="email" placeholder="Correo electrónico" name='email' [ngModel]="user.email" ngModel pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        required #email="ngModel">
+      <div class="text-danger"  *ngIf="email.errors?.required  && email.dirty">
         Este campo es requerido
       </div>
-      <div *ngIf="email.errors?.pattern">
+      <div class="text-danger"  *ngIf="email.errors?.pattern  && email.dirty">
         No es un email valido
       </div>
 
     </div>
   </div>
 
+
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button 
+              [disabled]="ngform.invalid"
+              type="submit" 
+              class="btn btn-outline-primary">
         Guardar
       </button>
     </div>

@@ -48,6 +48,6 @@ Existen 2 maneras de trabajar formularios en angular:
  
  
  style
- 	ng-invalid.ngtouched
+ 	ng-invalid.ngtouched 
                
               

@@ -16,7 +16,13 @@ export class TemplateComponent {
     name: null,
     lastname: null,
     email: null,
+    country: "CRI"
   };
+  countries = [
+         { code:"ARG",name:"Argentina" },
+         { code:"ESP",name:"España" },
+         { code:"CRI",name:"Costa Rica" }
+  ];
 
   constructor() { }
 

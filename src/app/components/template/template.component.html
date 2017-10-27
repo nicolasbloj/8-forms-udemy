@@ -3,20 +3,35 @@
 <form (ngSubmit)="save(ngform)" #ngform="ngForm" nonvalidate="">
 
   <div>
-
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre" name='nombre' ngModel [ngModel]="user.name" minlength="15" required>
+        <input class="form-control" type="text" placeholder="Nombre" name='nombre' 
+               ngModel [ngModel]="user.name"  minlength="5" required #name="ngModel"> 
+
+        <div *ngIf="name.errors?.required">
+          Este campo es requerido
+        </div>
+
+        <div *ngIf="name.errors?.minlength">
+          Este campo requiere {{ name.errors.minlength.requiredLength }} 
+          caracteres como minimo y usted introdujo {{name.errors.minlength.actualLength}}
+        </div>
+
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
+        <input class="form-control" type="text" placeholder="Apellido" name='apellido'
+                ngModel [ngModel]="user.lastname" required #lastname="ngModel">
 
-        <input class="form-control" type="text" placeholder="Apellido" name='apellido' ngModel [ngModel]="user.lastname" minlength="25">
+        <div *ngIf="lastname.errors?.required">
+          Este campo es requerido
+        </div>
+
       </div>
     </div>
 
@@ -25,12 +40,18 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
+      <input class="form-control" type="email" placeholder="Correo electrónico" name='email'
+             [ngModel]="user.email" ngModel pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             required #email="ngModel">
+      <div *ngIf="email.errors?.required">
+        Este campo es requerido
+      </div>
+      <div *ngIf="email.errors?.pattern">
+        No es un email valido
+      </div>
 
-      <input class="form-control" type="email" placeholder="Correo electrónico" name='email' [ngModel]="user.email" ngModel required>
     </div>
   </div>
-
-
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>

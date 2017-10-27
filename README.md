@@ -44,6 +44,10 @@ Existen 2 maneras de trabajar formularios en angular:
 
 
  <form (ngSubmit)="save()">
- Se dispara cuandoi se produce un enter en algun input o click en boton
+ Se dispara cuando se produce un enter en algun input o click en boton
+ 
+ 
+ style
+ 	ng-invalid.ngtouched
                
               

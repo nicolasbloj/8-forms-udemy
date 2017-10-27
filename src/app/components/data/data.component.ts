@@ -14,7 +14,7 @@ export class DataComponent {
     this.form = new FormGroup({
       'nombre': new FormControl('Nicolas'),
       'apellido': new FormControl(),
-      ' correo': new FormControl()
+      'correo': new FormControl()
     });
   }
 

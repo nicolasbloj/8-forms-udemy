@@ -49,5 +49,10 @@ Existen 2 maneras de trabajar formularios en angular:
  
  style
  	ng-invalid.ngtouched 
-               
-              
+
+***Aproximacion por DATA***
+
+
+FormGroup        
+
+pendding es un valor booleano que indica si el formulario tiene alguna validacion asincrona pendiente 

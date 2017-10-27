@@ -2,15 +2,15 @@
 <hr>
 <form [formGroup]="form" (ngSubmit)="guardarCambios()">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
       <label 
             class="col-2 col-form-label"
-            [ngClass]="{ 'text-danger': form.get('nombre').invalid &&      
-            form.controls['nombre'].dirty ,
-            'text-success': form.controls['nombre'].valid &&
-            form.controls['nombre'].dirty  }">
+            [ngClass]="{ 'text-danger': form.controls['nombrecompleto'].controls['nombre'].invalid &&      
+            form.get('nombrecompleto.nombre').dirty ,
+            'text-success': form.get('nombrecompleto.nombre').valid &&
+            form.get('nombrecompleto.nombre').dirty  }">
       Nombre
     </label>
       <div class="col-8">
@@ -20,17 +20,17 @@
               type="text" 
               placeholder="Nombre" 
               formControlName="nombre" 
-              [ngClass]="{ 'is-invalid': form.get('nombre').invalid && 
-                            form.controls['nombre'].dirty ,
-                           'is-valid': form.controls['nombre'].valid &&
-                            form.controls['nombre'].dirty  }">  
-          <!--  form.get('nombre') ===  form.controls['nombre'] -->
-          <div  *ngIf="form.controls['nombre'].errors?.required  && form.controls['nombre'].dirty" [ngClass]="{'invalid-feedback':form.controls['nombre'].errors!=null}" >
+              [ngClass]="{ 'is-invalid': form.get('nombrecompleto.nombre').invalid && 
+                            form.get('nombrecompleto.nombre').dirty ,
+                           'is-valid': form.get('nombrecompleto.nombre').valid &&
+                            form.get('nombrecompleto.nombre').dirty  }">  
+          <!--  form.get('nombre') ===  form.get('nombrecompleto.nombre') -->
+          <div  *ngIf="form.get('nombrecompleto.nombre').errors?.required  && form.get('nombrecompleto.nombre').dirty" [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}" >
             Este campo es requerido
           </div>
   
-          <div class="text-danger" *ngIf="form.controls['nombre'].errors?.minlength  && form.controls['nombre'].dirty"  [ngClass]="{'invalid-feedback':form.controls['nombre'].errors!=null}" >
-            Este campo requiere {{ form.controls['nombre'].errors.minlength.requiredLength }} caracteres como minimo y usted introdujo {{form.controls['nombre'].errors.minlength.actualLength}}
+          <div class="text-danger" *ngIf="form.get('nombrecompleto.nombre').errors?.minlength  && form.get('nombrecompleto.nombre').dirty"  [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}" >
+            Este campo requiere {{ form.get('nombrecompleto.nombre').errors.minlength.requiredLength }} caracteres como minimo y usted introdujo {{form.get('nombrecompleto.nombre').errors.minlength.actualLength}}
           </div>
           
 

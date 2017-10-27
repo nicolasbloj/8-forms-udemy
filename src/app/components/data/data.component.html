@@ -5,14 +5,35 @@
   <div>
 
     <div class="form-group row">
-      <label class="col-2 col-form-label">Nombre</label>
+      <label 
+            class="col-2 col-form-label"
+            [ngClass]="{ 'text-danger': form.get('nombre').invalid &&      
+            form.controls['nombre'].dirty ,
+            'text-success': form.controls['nombre'].valid &&
+            form.controls['nombre'].dirty  }">
+      Nombre
+    </label>
       <div class="col-8">
 
         <input 
               class="form-control" 
               type="text" 
               placeholder="Nombre" 
-              formControlName="nombre">
+              formControlName="nombre" 
+              [ngClass]="{ 'is-invalid': form.get('nombre').invalid && 
+                            form.controls['nombre'].dirty ,
+                           'is-valid': form.controls['nombre'].valid &&
+                            form.controls['nombre'].dirty  }">  
+          <!--  form.get('nombre') ===  form.controls['nombre'] -->
+          <div  *ngIf="form.controls['nombre'].errors?.required  && form.controls['nombre'].dirty" [ngClass]="{'invalid-feedback':form.controls['nombre'].errors!=null}" >
+            Este campo es requerido
+          </div>
+  
+          <div class="text-danger" *ngIf="form.controls['nombre'].errors?.minlength  && form.controls['nombre'].dirty"  [ngClass]="{'invalid-feedback':form.controls['nombre'].errors!=null}" >
+            Este campo requiere {{ form.controls['nombre'].errors.minlength.requiredLength }} caracteres como minimo y usted introdujo {{form.controls['nombre'].errors.minlength.actualLength}}
+          </div>
+          
+
       </div>
     </div>
 
@@ -52,6 +73,7 @@
       </button>
     </div>
   </div>
+
   {{ form.valid }}
 
 </form>

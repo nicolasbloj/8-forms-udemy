@@ -13,16 +13,25 @@ import { Component } from '@angular/core';
 export class TemplateComponent {
 
   user: Object = {
-    name: null,
-    lastname: null,
-    email: null,
-    country: "CRI"
+    name: 'nicolas',
+    lastname: 'bloj',
+    email: 'nicolasbloj@gmail.com',
+    country: "ARG",
+    gender: "Hombre",
+    state: "Soltero",
+    acept: false
   };
+
   countries = [
          { code:"ARG",name:"Argentina" },
          { code:"ESP",name:"España" },
          { code:"CRI",name:"Costa Rica" }
   ];
+
+  status = [
+    { name:"Casado" },
+    { name:"Soltero" }
+];
 
   constructor() { }
 

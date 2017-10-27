@@ -64,7 +64,7 @@
   
   <div class="form-group row">
       <label class="col-2 col-form-label" >Pais</label>
-      <div class="col-md-8">
+      <div class="col-md-8   pad-top-4">
        <select 
                 [(ngModel)] = "user.country"
                 name = "country"
@@ -81,6 +81,69 @@
     </div>
 
 
+
+  <div class="form-group row">
+      <label class="col-2 col-form-label" >Sexo</label>
+      <div class="col-md-8  pad-top-4">
+        <label class="custom-control custom-radio">
+          <input 
+                [(ngModel)]="user.gender"
+                name="gender" 
+                type="radio" 
+                value="Hombre"
+                class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Hombre</span>
+        </label>
+        <label class="custom-control custom-radio">
+        <input 
+            [(ngModel)]="user.gender"
+            name="gender" 
+            type="radio" 
+            value="Mujer"
+            class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Mujer</span>
+        </label>
+      </div>
+  </div>
+
+  <div class="form-group row">
+      <label class="col-2 col-form-label" >Estado Civil</label>
+      <div class="col-md-8   pad-top-4">
+        <label  *ngFor="let state of status"
+                class="custom-control custom-radio">
+          <input 
+                [(ngModel)]="user.state"
+                name="gender" 
+                type="radio" 
+                [value]="state.name"
+                class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">{{state.name}}</span>
+        </label>
+      </div>
+  </div>
+
+
+  <div class="form-group row">
+      <label class="col-2 col-form-label" > Acepta </label>
+      <div class="col-md-8  pad-top-4">
+          <label class="custom-control custom-checkbox">
+              <input 
+                    [(ngModel)]="user.acept"
+                     name="acept"
+                     type="checkbox"
+                     class="custom-control-input" 
+                     required>
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Acepta las condiciones </span>
+            </label>
+      </div>
+  </div>
+
+
+
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
@@ -94,3 +157,7 @@
   </div>
 
 </form>
+
+<pre>
+{{ user | json }}
+</pre>

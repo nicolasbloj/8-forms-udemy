@@ -12,9 +12,9 @@ export class DataComponent {
 
   constructor() {
     this.form = new FormGroup({
-      'nombre': new FormControl('Nicolas'),
-      'apellido': new FormControl(),
-      'correo': new FormControl()
+      'nombre': new FormControl('', Validators.required),
+      'apellido': new FormControl('', Validators.required),
+      'correo': new FormControl('', Validators.required),
     });
   }
 

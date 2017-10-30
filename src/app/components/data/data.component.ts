@@ -24,7 +24,7 @@ export class DataComponent {
     this.form = new FormGroup(
       {
         'nombrecompleto': new FormGroup(
-          {
+          {                         //  en primer parametro puedo setear valor del control.
             'nombre': new FormControl('', [Validators.required, Validators.minLength(3)]),
             'apellido': new FormControl('', Validators.required)
 
@@ -34,11 +34,33 @@ export class DataComponent {
       }
 
     );
+    this.form.setValue(this.usuario);
   }
 
   guardarCambios(): void {
     console.log('form.value', this.form.value);
     console.log('form', this.form);
+
+    // volvemos a la forma pristine (valor por defecto del campo).
+    // de esta forma no se resetea a su estado pristine(lo puedo verificar con 
+    // inspect input en navegador)
+    // this.form.setValue( this.usuario );
+
+    // para que el formulario entonces este como recien cargado hacemos :
+
+    this.form.reset(this.usuario);
+
+    // si quiero resetear a estado pristine pero data vacia:
+    /*this.form.reset({
+      nombrecompleto: {
+        nombre: '',
+        apellido: ''
+      },
+      correo: ''
+    });*/
+
+    // otra forma, menos recomendada:
+    // this.form.controls['correo'].setValue('');
   }
 
 }

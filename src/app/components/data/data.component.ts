@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -40,7 +41,9 @@ export class DataComponent {
 
         'password1': new FormControl('', [Validators.required]),
 
-        'password2': new FormControl()
+        'password2': new FormControl(),
+
+        'username': new FormControl('', [Validators.required], this.existeUsuario),
 
 
       }
@@ -68,7 +71,7 @@ export class DataComponent {
 
     // para que el formulario entonces este como recien cargado hacemos :
 
-    this.form.reset(this.usuario);
+          // this.form.reset(this.usuario);
 
     // si quiero resetear a estado pristine pero data vacia:
     /*this.form.reset({
@@ -91,7 +94,7 @@ export class DataComponent {
     // console.log((<FormArray>this.form.controls['pasatiempos']));
   }
 
-  // VALIDACION PERSONALIZADA
+  // VALIDACIONES PERSONALIZADAS
   // APELLIDO NO DEBE SER IGUAL A 'HERRERA'.
   noHerrera(control: FormControl): { [s: string]: boolean } {
     if (control.value === 'herrera') {
@@ -112,6 +115,30 @@ export class DataComponent {
     }
     return null;
   }
+
+
+
+  // VALIDACIONES ASYNC
+  existeUsuario(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+          if (control.value === 'nico') {
+            resolve({ existe: true });
+          } else {
+            resolve(null);
+          }
+        }, 1000);
+      });
+
+    return promise;
+  }
+
+
+
+
+
+  // TODAS LAS VALIDACIONES LAS DEBERIAMOS TENER EN UN FILE APARTE 
 }
 
 // FormControl

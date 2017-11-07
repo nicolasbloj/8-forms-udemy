@@ -27,7 +27,7 @@ export class DataComponent {
         'nombrecompleto': new FormGroup(
           {                         //  en primer parametro puedo setear valor del control.
             'nombre': new FormControl('', [Validators.required, Validators.minLength(3)]),
-            'apellido': new FormControl('', Validators.required)
+            'apellido': new FormControl('', [Validators.required, this.noHerrera])
 
           }
         ),
@@ -36,12 +36,23 @@ export class DataComponent {
         'pasatiempos': new FormArray([
           new FormControl('correr', Validators.required),
           new FormControl('saltar', Validators.required)
-        ])
+        ]),
+
+        'password1': new FormControl('', [Validators.required]),
+
+        'password2': new FormControl()
+
 
       }
 
     );
 
+    this.form.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual.bind(this.form)
+      // defino THIS ya que la funcion noIGual se ejecuta en otro contexto 
+      // en donde this no existe por lo tanto a this lo definimos con .bind
+    ]);
     // this.form.setValue(this.usuario);
   }
 
@@ -80,7 +91,27 @@ export class DataComponent {
     // console.log((<FormArray>this.form.controls['pasatiempos']));
   }
 
+  // VALIDACION PERSONALIZADA
+  // APELLIDO NO DEBE SER IGUAL A 'HERRERA'.
+  noHerrera(control: FormControl): { [s: string]: boolean } {
+    if (control.value === 'herrera') {
+      return {
+        noherrera: true
+      };
+    }
+    return null;
+  }
 
+  noIgual(control: FormControl): { [s: string]: boolean } {
+    const form: any = this; // antes definodo con .bind(this.form);
+
+    if (control.value !== form.controls['password1'].value) {
+      return {
+        noiguales: true
+      };
+    }
+    return null;
+  }
 }
 
 // FormControl

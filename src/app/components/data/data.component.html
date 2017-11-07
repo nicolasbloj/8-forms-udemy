@@ -5,9 +5,7 @@
   <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
-      <label 
-            class="col-2 col-form-label"
-            [ngClass]="{ 'text-danger': form.controls['nombrecompleto'].controls['nombre'].invalid &&      
+      <label class="col-2 col-form-label" [ngClass]="{ 'text-danger': form.controls['nombrecompleto'].controls['nombre'].invalid &&      
             form.get('nombrecompleto.nombre').dirty ,
             'text-success': form.get('nombrecompleto.nombre').valid &&
             form.get('nombrecompleto.nombre').dirty  }">
@@ -15,24 +13,21 @@
     </label>
       <div class="col-8">
 
-        <input 
-              class="form-control" 
-              type="text" 
-              placeholder="Nombre" 
-              formControlName="nombre" 
-              [ngClass]="{ 'is-invalid': form.get('nombrecompleto.nombre').invalid && 
+        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [ngClass]="{ 'is-invalid': form.get('nombrecompleto.nombre').invalid && 
                             form.get('nombrecompleto.nombre').dirty ,
                            'is-valid': form.get('nombrecompleto.nombre').valid &&
-                            form.get('nombrecompleto.nombre').dirty  }">  
-          <!--  form.get('nombre') ===  form.get('nombrecompleto.nombre') -->
-          <div  *ngIf="form.get('nombrecompleto.nombre').errors?.required  && form.get('nombrecompleto.nombre').dirty" [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}" >
-            Este campo es requerido
-          </div>
-  
-          <div class="text-danger" *ngIf="form.get('nombrecompleto.nombre').errors?.minlength  && form.get('nombrecompleto.nombre').dirty"  [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}" >
-            Este campo requiere {{ form.get('nombrecompleto.nombre').errors.minlength.requiredLength }} caracteres como minimo y usted introdujo {{form.get('nombrecompleto.nombre').errors.minlength.actualLength}}
-          </div>
-          
+                            form.get('nombrecompleto.nombre').dirty  }">
+        <!--  form.get('nombre') ===  form.get('nombrecompleto.nombre') -->
+        <div *ngIf="form.get('nombrecompleto.nombre').errors?.required  && form.get('nombrecompleto.nombre').dirty" [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}">
+          Este campo es requerido
+        </div>
+
+        <div class="text-danger" *ngIf="form.get('nombrecompleto.nombre').errors?.minlength  && form.get('nombrecompleto.nombre').dirty"
+          [ngClass]="{'invalid-feedback':form.get('nombrecompleto.nombre').errors!=null}">
+          Este campo requiere {{ form.get('nombrecompleto.nombre').errors.minlength.requiredLength }} caracteres como minimo y usted
+          introdujo {{form.get('nombrecompleto.nombre').errors.minlength.actualLength}}
+        </div>
+
 
       </div>
     </div>
@@ -41,11 +36,7 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input 
-              class="form-control" 
-              type="text" 
-              placeholder="Apellido"
-              formControlName="apellido">
+        <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
       </div>
     </div>
 
@@ -55,12 +46,24 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input 
-            class="form-control" 
-            type="email" 
-            placeholder="Correo electrónico"
-            formControlName="correo">
+      <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo">
     </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempo</label>
+
+    <div class="col-md-8" formArrayName="pasatiempos">
+
+      <input *ngFor="let pasatiempo of form.controls['pasatiempos'].controls; 
+                      let i=index" 
+                      class="form-control"
+                      formControlName="{{ i }}"
+                      >
+    </div>
+    <!--  type="button" importante ya que sino va a tomarlo como submit -->
+    <button type="button" class="btn btn-primary" (click)="agregarPasatiempo()">Agregar</button>
   </div>
 
 

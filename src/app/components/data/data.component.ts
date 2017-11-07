@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data',
@@ -16,6 +16,7 @@ export class DataComponent {
       apellido: 'bloj'
     },
     correo: 'nicolasbloj@gmail.com'
+    // , pasatiempos: []
   };
 
   constructor() {
@@ -30,11 +31,18 @@ export class DataComponent {
 
           }
         ),
-        'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
+        'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+
+        'pasatiempos': new FormArray([
+          new FormControl('correr', Validators.required),
+          new FormControl('saltar', Validators.required)
+        ])
+
       }
 
     );
-    this.form.setValue(this.usuario);
+
+    // this.form.setValue(this.usuario);
   }
 
   guardarCambios(): void {
@@ -42,8 +50,9 @@ export class DataComponent {
     console.log('form', this.form);
 
     // volvemos a la forma pristine (valor por defecto del campo).
-    // de esta forma no se resetea a su estado pristine(lo puedo verificar con 
-    // inspect input en navegador)
+
+    // de esta forma (this.form.setValue) no se resetea a su estado 
+    // pristine(lo puedo verificar con inspect input en navegador)
     // this.form.setValue( this.usuario );
 
     // para que el formulario entonces este como recien cargado hacemos :
@@ -62,6 +71,15 @@ export class DataComponent {
     // otra forma, menos recomendada:
     // this.form.controls['correo'].setValue('');
   }
+
+
+  agregarPasatiempo() {
+    (<FormArray>this.form.controls['pasatiempos'])
+      .push(new FormControl('dormir', Validators.required));
+
+    // console.log((<FormArray>this.form.controls['pasatiempos']));
+  }
+
 
 }
 
